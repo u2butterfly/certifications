@@ -1,0 +1,281 @@
+﻿<div class="email-notifications-article-wrapper">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="col12">
+                <strong>Notification Settings</strong><a class="select-all" ng-click="checkAll(true)" ng-class="{ 'faux-disabled': emailNotificationSettingsService.updateEmailNotificationAutoSubscribedPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0 }">Select All</a>
+                <div class="pull-right">
+                    <a href=""
+                       ng-click="emailNotificationSettingsService.getEmailNotificationSettings()"
+                       class="template-refresh"><span class="glyphicon glyphicon-refresh"></span></a> as of <span ng-bind="emailNotificationSettingsService.minutesSinceUpdate"></span> min ago
+                </div>
+            </div>
+        </div>
+        <div class="panel-body"
+             responsive-max-height
+             rmh-container-id="mainbody"
+             rmh-offset="55">
+            <div class="row" ng-show="emailNotificationSettingsService.emailNotificationSettings.$promise.$$state.status > 0">
+                <ul>
+                    <li class="switch-row auto-subscribe">
+                        <div class="info-label col9">
+                            <span>Automatically subscribe to new notifications</span>
+                        </div>
+                        <div class="info-data col3">
+                            <span>
+                                <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.IsAutoSubscribed" ng-change="updateAutoSubscribe()" ng-disabled="emailNotificationSettingsService.updateEmailNotificationAutoSubscribedPromise.$promise.$$state.status === 0">
+                                </toggle-switch>
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span>New Certifications</span>
+                            <span class="halflings halflings-info-sign"
+                                  popover="Includes counts by status of certification requests received or updated by the lender since the prior notification. New certification requests completed, deleted or rejected prior to notification are not included in these counts."
+                                  popover-placement="right"
+                                  popover-trigger="mouseenter">
+                            </span>
+                            <a class="select-all" ng-click="sectionSetters.newCertifications(true)" ng-class="{'faux-disabled':
+                               emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0}">Select All</a>
+                        </div>
+                        <ul>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Awaiting Certification
+
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['1'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['1'], 1)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Credit Denied
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['2'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['2'], 2)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span>Pending Certifications</span>
+                            <span class="halflings halflings-info-sign"
+                                  popover="Includes counts of all pending certification requests not yet completed, deleted or rejected at the time the notification is generated. Does not include any new certifications."
+                                  popover-placement="right"
+                                  popover-trigger="mouseenter">
+                            </span>
+                            <a class="select-all" ng-click="sectionSetters.pendingCertifications(true)" ng-class="{'faux-disabled':
+                               emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0}">Select All</a>
+                        </div>
+                        <ul>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Credit Denied
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['3'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['3'], 3)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Certification Requested
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['4'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['4'], 4)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Cert Request Partially Saved
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['5'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['5'], 5)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span>New Rejects by Error Reason</span>
+                            <span class="halflings halflings-info-sign"
+                                  popover="Includes counts by error reason of rejected loan requests occurring since the prior notification.  New loan rejects corrected or deleted on the ELMNet reject page prior to notification are not included in these counts."
+                                  popover-placement="right"
+                                  popover-trigger="mouseenter">
+                            </span>
+                            <a class="select-all" ng-click="sectionSetters.newRejects(true)" ng-class="{'faux-disabled':
+                               emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0}">Select All</a>
+                        </div>
+                        <ul>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Required field or invalid value
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['9'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['9'], 9)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Loan w/matching CL UniqID already exists
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['10'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['10'], 10)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    No match for update
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['11'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['11'], 11)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span> Pending Rejects by Error Reason</span>
+                            <span class="halflings halflings-info-sign"
+                                  popover="Includes counts by error reason of rejected loan requests not yet corrected or deleted and older than a day."
+                                  popover-placement="right"
+                                  popover-trigger="mouseenter">
+                            </span>
+                            <a class="select-all" ng-click="sectionSetters.pendingRejects(true)" ng-class="{'faux-disabled':
+                               emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0}">Select All</a>
+                        </div>
+                        <ul>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Required field or invalid value
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['12'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['12'], 12)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Loan w/matching CL UniqID already exists
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['13'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['13'], 13)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    No match for update
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['14'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['14'], 14)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span>Other</span>
+
+                        </div>
+                        <ul>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Password Expiration
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="passwordExpiration" disabled="true">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                            <li class="switch-row">
+                                <div class="info-label col9">
+                                    Email me when ELMOne report is ready to download
+                                </div>
+                                <div class="info-data col3">
+                                    <span>
+                                        <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['16'].Value" ng-change="updateEmailNotifications(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotifications['16'], 16)" ng-disabled="emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0">
+                                        </toggle-switch>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="info-label col12">
+                            <span>Disbursement Roster in Mailbox</span>
+                            <span class="halflings halflings-info-sign"
+                                  popover="Daily notification when a disbursement roster has been delivered to your mailbox and has not been retrieved."
+                                  popover-placement="right"
+                                  popover-trigger="mouseenter">
+                            </span>
+
+                            <a class="select-all" ng-class="{ 'faux-disabled':hasMailboxAccess === false || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0 || emailNotificationSettingsService.updateEmailNotificationSettingsPromise.$promise.$$state.status === 0 }" ng-click="sectionSetters.mailbox(true)">Select All</a>
+                        </div>
+                        <div class="well school-list">
+                            <input class="emailquery" autocomplete="off"
+                                   id="mailboxQuery"
+                                   name="mailboxQuery"
+                                   ng-model="mailboxQuery"
+                                   placeholder="Enter Mailbox ID"
+                                   type="search" />
+                            <span class="halflings halflings-search"></span>
+                            <div class="list-scroll">
+                                <ul>
+                                    <li class="switch-row list-of-schools" ng-repeat="mailbox in mailboxes | filter:mailboxQuery | unique:'Mailbox'| orderBy:'Mailbox'">
+                                        <div class="info-label col9"
+                                             title="{{mailbox.Mailbox}}">
+                                            <span>{{mailbox.Mailbox}}</span>
+                                        </div>
+                                        <div class="info-data col3">
+                                            <span>
+                                                <toggle-switch ng-model="emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotificationMailboxes[mailbox.Mailbox].Value" ng-change="updateEmailNotificationMailbox(emailNotificationSettingsService.emailNotificationSettings.Data.EmailNotificationMailboxes[mailbox.Mailbox], mailbox.Mailbox)" ng-disabled="hasMailboxAccess === false || emailNotificationSettingsService.updateEmailNotificationMailboxSettingsPromise.$promise.$$state.status === 0">
+                                                </toggle-switch>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="loader" ng-show="!emailNotificationSettingsService.emailNotificationSettings.$promise.$$state.status">Loading</div>
+        </div>
+    </div>
+</div>

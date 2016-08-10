@@ -1,0 +1,106 @@
+﻿<div class="certification-template-list">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Certification Templates</strong>
+            <span class="halflings halflings-info-sign"
+                  popover="A maximum of 20 templates can be created."
+                  popover-placement="right"
+                  popover-trigger="mouseenter">
+            </span>
+
+            <div class="pull-right">
+                <a href=""
+                   ng-class="{ 'faux-disabled':certificationTemplateService.certificationTemplates.Data.CertificationTemplates.length >= maxTemplateCount }"
+                   ng-click="showDetail()"
+                   popover="{{addIconPopoverText}}"
+                   popover-placement="left"
+                   popover-trigger="mouseenter"
+                   title="Add a new certification template">
+
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+                <a href="" class="delete-template" title="Delete certification template" ng-click="deleteCertificationTemplates()"><span class="glyphicon glyphicon-bin"></span></a>
+                <span class="glyphicon glyphicon-warning-sign"
+                      ng-show="certificationTemplateService.minutesSinceUpdate >= 20"
+                      popover="Your data has not been refreshed recently and may no longer be the most current available."
+                      popover-placement="bottom"
+                      popover-trigger="mouseenter"></span>
+                <a href=""
+                   ng-click="certificationTemplateService.getCertificationTemplates()"
+                   class="template-refresh"><span class="glyphicon glyphicon-refresh"></span></a> as of <span ng-bind="certificationTemplateService.minutesSinceUpdate"></span> min ago
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="module certification-templates">
+                <div class="module-table">
+                    <div class="row data-titles">
+                        <div class="data-checkbox">
+                            <div class="check-box pull-left">
+                                <a class="checkmark"
+                                   href=""
+                                   ng-click="setAllCheckboxes()"
+                                   ng-model="checkAllBox">
+                                    <span class="glyphicon glyphicon-ok-2" ng-show="checkAllBox"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="transactions-cols">
+
+                            <div class="data-template-name">
+                                Template Name
+                            </div>
+
+                            <div class="data-grade-level">
+                                Grade Level
+                            </div>
+
+                            <div class="data-enrollment-status">
+                                Enrollment Status
+                            </div>
+
+                            <div class="data-loan-period">
+                                Loan Period
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="module-items"
+                         responsive-max-height
+                         rmh-container-id="mainbody"
+                         rmh-offset="87"
+                         rmh-override="rmhOverride()">
+                        <div class="row data-info active"
+                             ng-class="{ selected: certificationTemplate.CertificationTemplateId === certificationTemplateDetailFormData.certificationTemplateId }"
+                             ng-repeat="certificationTemplate in certificationTemplateService.certificationTemplates.Data.CertificationTemplates | orderBy:'Name'"
+                             ng-show="certificationTemplateService.certificationTemplates.$promise.$$state.status > 0">
+
+                            <div class="data-checkbox">
+                                <div class="check-box pull-left">
+                                    <a class="checkmark" ng-click="certificationTemplate.checked=!certificationTemplate.checked">
+                                        <span class="glyphicon glyphicon-ok-2" ng-show="certificationTemplate.checked"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="transactions-cols" ng-click="showDetail(certificationTemplate)">
+                                <div class="data-template-name" title="{{certificationTemplate.Name}}"><span>{{certificationTemplate.Name}}</span></div>
+                                <div class="data-grade-level" title="{{certificationTemplate.GradeLevelId | replaceWithGradeLevelName:gradeLevelCodes}}">
+                                    {{certificationTemplate.GradeLevelId | replaceWithGradeLevelName:gradeLevelCodes}}
+                                </div>
+                                <div class="data-enrollment-status" title="{{certificationTemplate.EnrollmentStatusId | replaceWithEnrollmentStatusName:enrollmentStatuses}}">
+                                    {{certificationTemplate.EnrollmentStatusId | replaceWithEnrollmentStatusName:enrollmentStatuses}}
+                                </div>
+                                <div class="data-loan-period" title="{{certificationTemplate.LoanFrom | date:'MM/dd/yyyy'}} {{certificationTemplate.LoanFrom && certificationTemplate.LoanTo ? ' - '  : ''}} {{certificationTemplate.LoanFrom | date:'MM/dd/yyyy'}}">
+                                    {{certificationTemplate.LoanFrom | date:'MM/dd/yyyy'}}
+                                    <span ng-if="certificationTemplate.LoanFrom && certificationTemplate.LoanTo">-</span>
+                                    {{certificationTemplate.LoanTo | date:'MM/dd/yyyy'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loader" ng-show="certificationTemplateService.certificationTemplates.$promise.$$state.status === 0">Loading</div>
+                        <p class="alert alert-none" ng-show="certificationTemplateService.certificationTemplates.$promise.$$state.status > 0 && !certificationTemplateService.certificationTemplates.Data.CertificationTemplates.length">You do not currently have any templates. <a href="" ng-click="showDetail()">Click to create one.</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

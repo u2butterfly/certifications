@@ -1,0 +1,368 @@
+﻿<div class="transaction-details certification-detail-form">
+    <form autocomplete="off"
+          name="certificationTemplateDetailForm">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Add/Update Template</strong>
+                <a href="" class="pull-right" title="Close" ng-click="closeDetail()"><span class="glyphicon glyphicon-remove-2"></span></a>
+
+            </div>
+            <div class="panel-body template-details"
+                 responsive-max-height
+                 rmh-container-id="mainbody"
+                 rmh-offset="350">
+                <div class="record-body row">
+                    <div class="record-section template-name">
+                        <div class="record-section-title">
+                            <span class="glyphicon"
+                                  ng-class="{
+                                    'glyphicon-notes':
+                                        certificationTemplateDetailForm.name.$valid ||
+                                        certificationTemplateDetailForm.name.$pristine,
+                                    'glyphicon-circle-exclamation-mark':
+                                        certificationTemplateDetailForm.name.$invalid &&
+                                        certificationTemplateDetailForm.name.$dirty}"></span>
+
+                            <label class="section-title">Name</label>
+                        </div>
+
+                        <div class="record-info">
+                            <div class="row">
+                                <div class="record-set col8 form-group"
+                                     ng-class="{ 'has-error':
+                                                        certificationTemplateDetailForm.name.$dirty &&
+                                                        certificationTemplateDetailForm.name.$invalid}">
+
+                                    <label for="name" id="templateNameLabel">
+                                        Template Name *
+                                    </label>
+                                    <input allowed-value="certificationTemplateDetailFormData.nameCopy"
+                                           allowed-characters="0-9a-zA-Z \-'"
+                                           class="form-control certification-template-name"
+                                           comparison-property-name="Name"
+                                           focus-on="$parent.certificationTemplateDetailFormData"
+                                           id="name"
+                                           maxlength="50"
+                                           name="name"
+                                           ng-blur="showTemplateNameRequirements = false"
+                                           ng-focus="showTemplateNameRequirements = true"
+                                           ng-model="certificationTemplateDetailFormData.name"
+                                           not-in-list-of-objects-validator="certificationTemplateService.certificationTemplates.Data.CertificationTemplates"
+                                           required
+                                           size="50"
+                                           type="text">
+                                    <div class="arrow-box template-name" ng-show="showTemplateNameRequirements">
+                                        <div class="field-requirements">
+                                            <div>
+                                                <span class="glyphicon"
+                                                      ng-class="{
+                                                'glyphicon-ban': certificationTemplateDetailForm.name.$error.required,
+                                                'glyphicon-ok': !certificationTemplateDetailForm.name.$error.required}"></span>
+                                                Template name is required. 50 character limit includes letters, numbers, spaces and dashes.
+                                            </div>
+                                            <div>
+                                                <span class="glyphicon"
+                                                      ng-class="{
+                                                'glyphicon-ban': certificationTemplateDetailForm.name.$error.notInListOfObjects,
+                                                'glyphicon-ok': !certificationTemplateDetailForm.name.$error.notInListOfObjects
+                                                }"></span>
+                                                Template name must be unique.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="record-section loan-info-template">
+                        <div class="record-section-title">
+                            <span class="glyphicon"
+                                  ng-class="{
+                                    'glyphicon-pen':
+                                        certificationTemplateDetailForm.gradeLevelId.$valid &&
+                                        certificationTemplateDetailForm.enrollmentStatusId.$valid &&
+                                        certificationTemplateDetailForm.anticipatedGraduationDate.$valid &&
+                                        certificationTemplateDetailForm.loanFrom.$valid &&
+                                        certificationTemplateDetailForm.loanTo.$valid,
+                                    'glyphicon-circle-exclamation-mark':
+                                        certificationTemplateDetailForm.gradeLevelId.$invalid ||
+                                        certificationTemplateDetailForm.enrollmentStatusId.$invalid ||
+                                        certificationTemplateDetailForm.anticipatedGraduationDate.$invalid ||
+                                        certificationTemplateDetailForm.loanFrom.$invalid ||
+                                        certificationTemplateDetailForm.loanTo.$invalid
+                                    }"></span>
+
+                            <label class="section-title">Loan Information</label>
+                        </div>
+                        <div class="record-info">
+                            <div class="row">
+                                <div class="record-set col4 form-group"
+                                     ng-class="{ 'has-error': certificationTemplateDetailForm.gradeLevelId.$invalid }">
+                                    <label for="gradeLevelId" id="gradeLevelIdLabel">Grade Level<span class="halflings halflings-exclamation-sign" ng-show="certificationTemplateDetailForm.gradeLevelId.$invalid"></span></label>
+                                    <select autocomplete="off"
+                                            class="form-control grade-level"
+                                            id="gradeLevelId"
+                                            name="gradeLevelId"
+                                            ng-model="$parent.certificationTemplateDetailFormData.gradeLevelId"
+                                            ng-options="gradeLevel.Id as gradeLevel.Description for gradeLevel in gradeLevelCodes | orderBy:'gradeLevel.SortOrder'">
+                                        <option value="">Grade Level</option>
+                                    </select>
+
+                                </div>
+                                <div class="record-set col4 form-group"
+                                     ng-class="{ 'has-error': certificationTemplateDetailForm.EnrollmentStatusId.$invalid }">
+                                    <label for="enrollmentStatusId" id="enrollmentStatusIdLabel">Enrollment Status<span class="halflings halflings-exclamation-sign" ng-show="certificationTemplateDetailForm.EnrollmentStatusId.$invalid"></span></label>
+                                    <select autocomplete="off"
+                                            class="form-control enrollment-status"
+                                            id="enrollmentStatusId"
+                                            name="enrollmentStatusId"
+                                            ng-model="$parent.certificationTemplateDetailFormData.enrollmentStatusId"
+                                            ng-options="status.Id as status.Name for status in enrollmentStatuses">
+                                        <option value="">Enrollment Status</option>
+                                    </select>
+                                </div>
+                                <div class="record-set col4 form-group anticipated-graduation-date"
+                                     ng-class="{ 'has-error': certificationTemplateDetailForm.anticipatedGraduationDate.$invalid }">
+                                    <label for="anticipatedGraduationDate" id="anticipatedGraduationDateLabel" class="grad-date-label">Anticipated Graduation Date<span class="halflings halflings-exclamation-sign" ng-show="certificationTemplateDetailForm.anticipatedGraduationDate.$invalid"></span></label>
+                                    <input autocomplete="off"
+                                           class="form-control grad-date"
+                                           date-value-validator
+                                           id="anticipatedGraduationDate"
+                                           name="anticipatedGraduationDate"
+                                           ng-blur="showAnticipatedGraduationDateRequirements = false"
+                                           ng-focus="showAnticipatedGraduationDateRequirements = true"
+                                           ng-model="$parent.certificationTemplateDetailFormData.anticipatedGraduationDate"
+                                           size="10"
+                                           type="text"
+                                           ui-mask="99/99/9999">
+                                    <div class="arrow-box-right anticipated-graduation-date" ng-show="showAnticipatedGraduationDateRequirements">
+                                        <div class="field-requirements">
+                                            <div>
+                                                <span class="glyphicon"
+                                                      ng-class="{
+                                                'glyphicon-ban': certificationTemplateDetailForm.anticipatedGraduationDate.$error.mask || certificationTemplateDetailForm.anticipatedGraduationDate.$error.dateValue,
+                                                'glyphicon-ok':  !certificationTemplateDetailForm.anticipatedGraduationDate.$error.mask && !certificationTemplateDetailForm.anticipatedGraduationDate.$error.dateValue
+                                                }"></span>
+                                                Anticipated graduation date must be a valid date with format mm/dd/yyyy.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="record-set col6 loan-from-to-col">
+                                    <label for="loanFrom" id="loanFromLabel">
+                                        Loan Period
+                                        <span class="halflings halflings-exclamation-sign" ng-show="certificationTemplateDetailForm.loanFrom.$invalid || certificationTemplateDetailForm.loanTo.$invalid"></span>
+                                    </label>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': certificationTemplateDetailForm.loanFrom.$invalid}">
+                                        <input autocomplete="off"
+                                               class="form-control loan-from"
+                                               date-value-validator
+                                               id="loanFrom"
+                                               name="loanFrom"
+                                               ng-blur="showLoanFromRequirements = false"
+                                               ng-focus="showLoanFromRequirements = true"
+                                               ng-model="$parent.certificationTemplateDetailFormData.loanFrom"
+                                               size="10"
+                                               type="text"
+                                               ui-mask="99/99/9999">
+                                        <div class="arrow-box-right loan-from" ng-show="showLoanFromRequirements">
+                                            <div class="field-requirements">
+                                                <div>
+                                                    <span class="glyphicon"
+                                                          ng-class="{
+                                                'glyphicon-ban': certificationTemplateDetailForm.loanFrom.$error.mask || certificationTemplateDetailForm.loanFrom.$error.dateValue,
+                                                'glyphicon-ok': !certificationTemplateDetailForm.loanFrom.$error.mask && !certificationTemplateDetailForm.loanFrom.$error.dateValue}"></span>
+                                                    Loan from date must be a valid date with format mm/dd/yyyy.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="range-to">to</p>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': certificationTemplateDetailForm.loanTo.$invalid}">
+                                        <input autocomplete="off"
+                                               class="form-control loan-to"
+                                               date-value-validator
+                                               greater-than-date-validator="$parent.certificationTemplateDetailFormData.loanFrom"
+                                               id="loanTo"
+                                               name="loanTo"
+                                               ng-blur="showLoanToRequirements = false"
+                                               ng-focus="showLoanToRequirements = true"
+                                               ng-model="$parent.certificationTemplateDetailFormData.loanTo"
+                                               size="10"
+                                               type="text"
+                                               ui-mask="99/99/9999">
+                                        <div class="arrow-box-right loan-to" ng-show="showLoanToRequirements">
+                                            <div class="field-requirements">
+                                                <div>
+                                                    <span class="glyphicon"
+                                                          ng-class="{
+                                                'glyphicon-ban': certificationTemplateDetailForm.loanTo.$error.mask || certificationTemplateDetailForm.loanTo.$error.dateValue,
+                                                'glyphicon-ok': !certificationTemplateDetailForm.loanTo.$error.mask && !certificationTemplateDetailForm.loanTo.$error.dateValue
+                                                }"></span>
+                                                    Loan to date must be a valid date with format mm/dd/yyyy.
+                                                </div>
+                                                <div>
+                                                    <span class="glyphicon"
+                                                          ng-class="{
+                                            'glyphicon-ban': certificationTemplateDetailForm.loanTo.$error.mask || certificationTemplateDetailForm.loanTo.$error.greaterThanDate,
+                                            'glyphicon-ok':  !certificationTemplateDetailForm.loanTo.$error.mask && !certificationTemplateDetailForm.loanTo.$error.greaterThanDate
+                                            }"></span>
+                                                    Loan to date must be after loan from date with format mm/dd/yyyy.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="record-section template-disbursements">
+                        <div class="record-section template">
+                            <div class="record-section-title">
+                                <span class="glyphicon"
+                                      ng-class="{
+                                        'glyphicon-random':
+                                            (!certificationTemplateDetailForm.disbursementAmount0 || certificationTemplateDetailForm.disbursementAmount0.$valid) &&
+                                            (!certificationTemplateDetailForm.disbursementDate0 || certificationTemplateDetailForm.disbursementDate0.$valid) &&
+                                            (!certificationTemplateDetailForm.amountPercentage1 || certificationTemplateDetailForm.amountPercentage1.$valid) &&
+                                            (!certificationTemplateDetailForm.disbursementDate1 || certificationTemplateDetailForm.disbursementDate1.$valid) &&
+                                            (!certificationTemplateDetailForm.amountPercentage2 || certificationTemplateDetailForm.amountPercentage2.$valid) &&
+                                            (!certificationTemplateDetailForm.disbursementDate2 || certificationTemplateDetailForm.disbursementDate2.$valid) &&
+                                            (!certificationTemplateDetailForm.amountPercentage3 || certificationTemplateDetailForm.amountPercentage3.$valid) &&
+                                            (!certificationTemplateDetailForm.disbursementDate3 || certificationTemplateDetailForm.disbursementDate3.$valid),
+                                        'glyphicon-circle-exclamation-mark':
+                                            (certificationTemplateDetailForm.disbursementAmount0 && certificationTemplateDetailForm.disbursementAmount0.$invalid) ||
+                                            (certificationTemplateDetailForm.disbursementDate0 && certificationTemplateDetailForm.disbursementDate0.$invalid) ||
+                                            (certificationTemplateDetailForm.amountPercentage1 && certificationTemplateDetailForm.amountPercentage1.$invalid) ||
+                                            (certificationTemplateDetailForm.disbursementDate1 && certificationTemplateDetailForm.disbursementDate1.$invalid) ||
+                                            (certificationTemplateDetailForm.amountPercentage2 && certificationTemplateDetailForm.amountPercentage2.$invalid) ||
+                                            (certificationTemplateDetailForm.disbursementDate2 && certificationTemplateDetailForm.disbursementDate2.$invalid) ||
+                                            (certificationTemplateDetailForm.amountPercentage3 && certificationTemplateDetailForm.amountPercentage3.$invalid) ||
+                                            (certificationTemplateDetailForm.disbursementDate3 && certificationTemplateDetailForm.disbursementDate3.$invalid)
+                                        }"></span>
+
+                                <label class="section-title">Disbursements</label>
+                            </div>
+                            <div class="record-info">
+                                <div class="disbursement-records" ng-repeat="disbursement in $parent.certificationTemplateDetailFormData.disbursements | orderBy:'disbursementNumber'">
+
+                                    <div class="row">
+                                        <label class="disbursement-title"
+                                               id="disbursementNumber{{$index}}"
+                                               name="disbursementNumber{{$index}}">Disbursement {{$index + 1}}</label>
+                                    </div>
+                                    <div class="record-set col4 form-group"
+                                         ng-class="{ 'has-error': certificationTemplateDetailForm.disbursementDate{{$index}}.$invalid}">
+                                        <label for="disbursementDate{{$index}}" id="disbursementDate{{$index}}Label">
+                                            Date
+                                            <span class="halflings halflings-exclamation-sign" ng-show="certificationTemplateDetailForm.disbursementDate{{$index}}.$invalid"></span>
+                                        </label>
+                                        <input autocomplete="off"
+                                               class="form-control disburse-date"
+                                               date-value-validator
+                                               id="disbursementDate{{$index}}"
+                                               name="disbursementDate{{$index}}"
+                                               ng-blur="showDisbursementDateRequirements = false"
+                                               ng-focus="showDisbursementDateRequirements = true"
+                                               ng-model="disbursement.disbursementDate"
+                                               size="10"
+                                               type="text"
+                                               ui-mask="99/99/9999">
+                                        <div class="arrow-box-right disbursement-date" ng-show="showDisbursementDateRequirements">
+                                            <div class="field-requirements">
+                                                <div>
+                                                    <span class="glyphicon"
+                                                          ng-class="{
+                                                          'glyphicon-ban':
+                                                          certificationTemplateDetailForm.disbursementDate{{$index}}.$error.mask || certificationTemplateDetailForm.disbursementDate{{$index}}.$error.dateValue,
+                                                          'glyphicon-ok':
+                                                          !certificationTemplateDetailForm.disbursementDate{{$index}}.$error.mask && !certificationTemplateDetailForm.disbursementDate{{$index}}.$error.dateValue
+                                                          }"></span>
+                                                    Disbursement {{$index + 1}} date must be a valid date
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="record-set col4 form-group"
+                                         ng-class="{ 'has-error': certificationTemplateDetailForm.amountPercentage{{$index}}.$invalid}">
+                                        <label for="amountPercentage{{$index}}" id="amountPercentage{{$index}}Label">
+                                            Amount Percentage
+                                            <span class="halflings halflings-exclamation-sign"
+                                                  ng-show="certificationTemplateDetailForm.amountPercentage{{$index}}.$invalid"></span>
+                                        </label>
+                                        <input autocomplete="off"
+                                               class="form-control amt-percent"
+                                               id="amountPercentage{{$index}}"
+                                               allowed-characters="0-9"
+                                               max-value="100"
+                                               name="amountPercentage{{$index}}"
+                                               ng-blur="showDisbursementAmountPercentageRequirements = false"
+                                               ng-focus="showDisbursementAmountPercentageRequirements = true"
+                                               ng-model="disbursement.amountPercentage"
+                                               size="10"
+                                               type="text">
+                                        <span class="percent-sign">%</span>
+
+                                    </div>
+                                    <div class="record-set col4 form-group">
+                                        <label>Hold/Release Status</label>
+                                        <div class="row disb-radio">
+                                            <div class="col6">
+                                                <label for="disbursementStatusH{{$index}}">
+                                                    <input autocomplete="off"
+                                                           id="disbursementStatusH{{$index}}"
+                                                           name="disbursementStatus{{$index}}"
+                                                           ng-model="disbursement.holdReleaseFlag"
+                                                           type="radio"
+                                                           value="H"> Hold
+                                                </label>
+                                            </div>
+                                            <div class="col6">
+                                                <label for="disbursementStatusR{{$index}}">
+                                                    <input autocomplete="off"
+                                                           id="disbursementStatusR{{$index}}"
+                                                           name="disbursementStatus{{$index}}"
+                                                           ng-model="disbursement.holdReleaseFlag"
+                                                           type="radio"
+                                                           value="R">
+                                                    Release
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel-footer">
+
+                <div class="row">
+                    <div class="pull-right">
+
+                        <button class="btn btn-default"
+                                type="button"
+                                ng-click="$parent.certificationTemplateDetailFormData=undefined">
+                            Cancel
+                        </button>
+                        <button class="btn btn-primary"
+                                type="button"
+                                ng-disabled="(!certificationTemplateDetailFormData.certificationTemplateId  && certificationTemplateService.certificationTemplates.Data.CertificationTemplates.length >= maxTemplateCount) || certificationTemplateDetailForm.$invalid"
+                                ng-click="saveCertificationTemplate()">
+                            Save
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
